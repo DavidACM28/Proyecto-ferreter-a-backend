@@ -31,6 +31,12 @@ public class ventaEntity {
     @Column(name = "totalventa")
     private double totalVenta;
 
+    @Column(name = "clienteventa")
+    private String clienteVenta;
+
+    @Column(name = "mediopagoventa")
+    private String medioPagoVenta;
+
     public ventaEntity(int idVenta) {
         this.idVenta = idVenta;
     }

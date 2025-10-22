@@ -38,7 +38,7 @@ CREATE TABLE `auditoriainventario` (
   KEY `idTrabajador` (`idTrabajador`),
   CONSTRAINT `auditoriainventario_ibfk_1` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`),
   CONSTRAINT `auditoriainventario_ibfk_2` FOREIGN KEY (`idTrabajador`) REFERENCES `trabajador` (`idTrabajador`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,7 +47,7 @@ CREATE TABLE `auditoriainventario` (
 
 LOCK TABLES `auditoriainventario` WRITE;
 /*!40000 ALTER TABLE `auditoriainventario` DISABLE KEYS */;
-INSERT INTO `auditoriainventario` VALUES (2,2,'INSERT',0,200,3,'2025-10-10 21:07:12','Ingreso de productos'),(3,1,'UPDATE',100,99,3,'2025-10-10 21:53:44','Venta'),(4,1,'UPDATE',99,49,3,'2025-10-11 16:46:16','Venta'),(5,2,'UPDATE',200,198,3,'2025-10-16 04:30:15','Venta'),(6,1,'UPDATE',49,45,3,'2025-10-16 04:41:58','Venta'),(7,2,'UPDATE',200,197,3,'2025-10-16 04:41:58','Venta'),(8,2,'UPDATE',200,199,3,'2025-10-16 04:55:17','Venta'),(9,2,'UPDATE',199,194,3,'2025-10-16 04:59:43','Venta'),(10,2,'UPDATE',194,193,3,'2025-10-17 17:08:21','Venta'),(11,2,'UPDATE',193,189,3,'2025-10-17 17:18:19','Venta'),(12,1,'UPDATE',49,50,3,'2025-10-19 01:58:35','Ajuste en el inventario'),(13,1,'UPDATE',50,49,3,'2025-10-19 01:59:15','Reajuste en el inventario'),(14,3,'INSERT',0,100,3,'2025-10-19 03:22:41','Nuevo producto'),(15,3,'UPDATE',100,93,3,'2025-10-19 03:40:59','Venta'),(16,2,'UPDATE',189,188,3,'2025-10-19 04:37:08','Venta'),(17,1,'UPDATE',49,9,3,'2025-10-19 17:32:30','prueba'),(18,1,'UPDATE',9,49,3,'2025-10-19 17:32:45','prueba'),(19,1,'UPDATE',49,0,3,'2025-10-19 17:33:29','prueba'),(20,1,'UPDATE',0,49,3,'2025-10-19 17:33:41','prueba'),(21,1,'UPDATE',49,9,3,'2025-10-19 17:39:50','prueba'),(22,1,'UPDATE',9,49,3,'2025-10-19 17:40:06','prueba'),(23,1,'UPDATE',49,0,3,'2025-10-19 17:40:45','prueba'),(24,1,'UPDATE',0,49,3,'2025-10-19 17:41:13','prueba'),(25,1,'UPDATE',49,0,3,'2025-10-19 17:41:25','prueba'),(26,1,'UPDATE',0,49,3,'2025-10-19 17:44:02','prueba'),(27,1,'UPDATE',49,0,3,'2025-10-19 21:16:26','prueba'),(28,1,'UPDATE',0,9,3,'2025-10-19 21:17:57','prueba'),(29,1,'UPDATE',9,49,3,'2025-10-19 21:52:05','prueba'),(30,1,'UPDATE',49,50,3,'2025-10-20 00:13:28','prueba'),(31,1,'UPDATE',50,49,3,'2025-10-20 00:13:43','prueba'),(32,1,'UPDATE',49,50,3,'2025-10-20 00:14:37','prueba'),(33,1,'UPDATE',50,49,3,'2025-10-20 00:14:43','prueba'),(34,2,'UPDATE',188,189,3,'2025-10-20 00:15:11','prueba'),(35,2,'UPDATE',189,188,3,'2025-10-20 00:15:18','prueba'),(36,4,'INSERT',0,200,3,'2025-10-20 18:34:38','Nuevo producto');
+INSERT INTO `auditoriainventario` VALUES (2,2,'INSERT',0,200,3,'2025-10-10 21:07:12','Ingreso de productos'),(3,1,'UPDATE',100,99,3,'2025-10-10 21:53:44','Venta'),(4,1,'UPDATE',99,49,3,'2025-10-11 16:46:16','Venta'),(5,2,'UPDATE',200,198,3,'2025-10-16 04:30:15','Venta'),(6,1,'UPDATE',49,45,3,'2025-10-16 04:41:58','Venta'),(7,2,'UPDATE',200,197,3,'2025-10-16 04:41:58','Venta'),(8,2,'UPDATE',200,199,3,'2025-10-16 04:55:17','Venta'),(9,2,'UPDATE',199,194,3,'2025-10-16 04:59:43','Venta'),(10,2,'UPDATE',194,193,3,'2025-10-17 17:08:21','Venta'),(11,2,'UPDATE',193,189,3,'2025-10-17 17:18:19','Venta'),(12,1,'UPDATE',49,50,3,'2025-10-19 01:58:35','Ajuste en el inventario'),(13,1,'UPDATE',50,49,3,'2025-10-19 01:59:15','Reajuste en el inventario'),(14,3,'INSERT',0,100,3,'2025-10-19 03:22:41','Nuevo producto'),(15,3,'UPDATE',100,93,3,'2025-10-19 03:40:59','Venta'),(16,2,'UPDATE',189,188,3,'2025-10-19 04:37:08','Venta'),(17,1,'UPDATE',49,9,3,'2025-10-19 17:32:30','prueba'),(18,1,'UPDATE',9,49,3,'2025-10-19 17:32:45','prueba'),(19,1,'UPDATE',49,0,3,'2025-10-19 17:33:29','prueba'),(20,1,'UPDATE',0,49,3,'2025-10-19 17:33:41','prueba'),(21,1,'UPDATE',49,9,3,'2025-10-19 17:39:50','prueba'),(22,1,'UPDATE',9,49,3,'2025-10-19 17:40:06','prueba'),(23,1,'UPDATE',49,0,3,'2025-10-19 17:40:45','prueba'),(24,1,'UPDATE',0,49,3,'2025-10-19 17:41:13','prueba'),(25,1,'UPDATE',49,0,3,'2025-10-19 17:41:25','prueba'),(26,1,'UPDATE',0,49,3,'2025-10-19 17:44:02','prueba'),(27,1,'UPDATE',49,0,3,'2025-10-19 21:16:26','prueba'),(28,1,'UPDATE',0,9,3,'2025-10-19 21:17:57','prueba'),(29,1,'UPDATE',9,49,3,'2025-10-19 21:52:05','prueba'),(30,1,'UPDATE',49,50,3,'2025-10-20 00:13:28','prueba'),(31,1,'UPDATE',50,49,3,'2025-10-20 00:13:43','prueba'),(32,1,'UPDATE',49,50,3,'2025-10-20 00:14:37','prueba'),(33,1,'UPDATE',50,49,3,'2025-10-20 00:14:43','prueba'),(34,2,'UPDATE',188,189,3,'2025-10-20 00:15:11','prueba'),(35,2,'UPDATE',189,188,3,'2025-10-20 00:15:18','prueba'),(36,4,'INSERT',0,200,3,'2025-10-20 18:34:38','Nuevo producto'),(37,2,'UPDATE',188,185,3,'2025-10-21 01:08:38','Venta'),(38,1,'UPDATE',49,0,3,'2025-10-21 01:10:45','prueba'),(39,1,'UPDATE',0,49,3,'2025-10-21 01:11:48','prueba'),(40,1,'UPDATE',49,47,3,'2025-10-21 03:38:29','Venta'),(41,2,'UPDATE',185,184,3,'2025-10-21 03:38:29','Venta'),(42,1,'UPDATE',47,51,3,'2025-10-21 03:40:28','prueba cambio stock'),(43,1,'UPDATE',51,9,3,'2025-10-21 03:41:01','prueba cambio stock'),(44,2,'UPDATE',184,0,3,'2025-10-21 03:41:12','prueba'),(45,1,'UPDATE',9,12,3,'2025-10-21 03:42:24','prueba'),(46,2,'UPDATE',0,-1,3,'2025-10-22 14:48:21','Venta');
 /*!40000 ALTER TABLE `auditoriainventario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -64,7 +64,7 @@ CREATE TABLE `categoria` (
   `estadoCategoria` tinyint(1) NOT NULL,
   PRIMARY KEY (`idCategoria`),
   UNIQUE KEY `idCategoria` (`idCategoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +73,7 @@ CREATE TABLE `categoria` (
 
 LOCK TABLES `categoria` WRITE;
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
-INSERT INTO `categoria` VALUES (1,'Materiales de construcción',1),(2,'Ceramicas',1);
+INSERT INTO `categoria` VALUES (1,'Materiales de construcción',1),(2,'Ceramicas',1),(3,'Categoría de prueba',1);
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -154,7 +154,7 @@ CREATE TABLE `detalleventa` (
   KEY `idProducto` (`idProducto`),
   CONSTRAINT `detalleventa_ibfk_1` FOREIGN KEY (`idVenta`) REFERENCES `venta` (`idVenta`),
   CONSTRAINT `detalleventa_ibfk_2` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -163,7 +163,7 @@ CREATE TABLE `detalleventa` (
 
 LOCK TABLES `detalleventa` WRITE;
 /*!40000 ALTER TABLE `detalleventa` DISABLE KEYS */;
-INSERT INTO `detalleventa` VALUES (1,1,1,1,30),(2,1,2,50,30),(5,2,5,3,10),(6,1,5,4,30),(7,2,6,1,10),(8,2,7,5,10),(9,2,16,1,10),(10,2,17,4,10),(11,3,18,7,50),(12,2,19,1,10);
+INSERT INTO `detalleventa` VALUES (1,1,1,1,30),(2,1,2,50,30),(5,2,5,3,10),(6,1,5,4,30),(7,2,6,1,10),(8,2,7,5,10),(9,2,16,1,10),(10,2,17,4,10),(11,3,18,7,50),(12,2,19,1,10),(13,2,20,3,10),(14,2,21,1,10),(15,1,21,2,30),(16,2,22,1,10);
 /*!40000 ALTER TABLE `detalleventa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -226,7 +226,7 @@ CREATE TABLE `producto` (
 
 LOCK TABLES `producto` WRITE;
 /*!40000 ALTER TABLE `producto` DISABLE KEYS */;
-INSERT INTO `producto` VALUES (1,1,'Bolsa de cemento','Bolsa de cemento 50 kg marca peruana',30,49,1),(2,1,'Ladrillos','Ladrillos king kong',10,188,1),(3,2,'Ceramica de prueba','Esto es una prueba',50,93,1),(4,2,'Ceramica de piso','Ceramica de piso 40x40',80,200,1);
+INSERT INTO `producto` VALUES (1,2,'Prueba','Prueba',35,12,1),(2,1,'Ladrillos','Ladrillos king kong',10,-1,1),(3,2,'Ceramica de prueba','Esto es una prueba',50,93,1),(4,2,'Ceramica de piso','Ceramica de piso 40x40',80,200,1);
 /*!40000 ALTER TABLE `producto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -299,11 +299,13 @@ CREATE TABLE `venta` (
   `idTrabajador` int NOT NULL,
   `fechaVenta` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `totalVenta` double NOT NULL,
+  `clienteVenta` varchar(100) NOT NULL,
+  `medioPagoVenta` varchar(20) NOT NULL,
   PRIMARY KEY (`idVenta`),
   UNIQUE KEY `idVenta` (`idVenta`),
   KEY `idTrabajador` (`idTrabajador`),
   CONSTRAINT `venta_ibfk_1` FOREIGN KEY (`idTrabajador`) REFERENCES `trabajador` (`idTrabajador`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -312,7 +314,7 @@ CREATE TABLE `venta` (
 
 LOCK TABLES `venta` WRITE;
 /*!40000 ALTER TABLE `venta` DISABLE KEYS */;
-INSERT INTO `venta` VALUES (1,3,'2025-10-10 21:43:01',30),(2,3,'2025-10-11 16:45:32',1500),(5,3,'2025-10-16 04:41:58',150),(6,3,'2025-10-16 04:55:17',10),(7,3,'2025-10-16 04:59:43',50),(16,3,'2025-10-17 17:08:21',10),(17,3,'2025-10-17 17:18:19',40),(18,3,'2025-10-19 03:40:59',350),(19,3,'2025-10-19 04:37:08',10);
+INSERT INTO `venta` VALUES (1,3,'2025-10-10 21:43:01',30,'prueba','prueba'),(2,3,'2025-10-11 16:45:32',1500,'prueba','prueba'),(5,3,'2025-10-16 04:41:58',150,'prueba','prueba'),(6,3,'2025-10-16 04:55:17',10,'prueba','prueba'),(7,3,'2025-10-16 04:59:43',50,'prueba','prueba'),(16,3,'2025-10-17 17:08:21',10,'prueba','prueba'),(17,3,'2025-10-17 17:18:19',40,'prueba','prueba'),(18,3,'2025-10-19 03:40:59',350,'prueba','prueba'),(19,3,'2025-10-19 04:37:08',10,'prueba','prueba'),(20,3,'2025-10-21 01:08:38',30,'prueba','prueba'),(21,3,'2025-10-21 03:38:29',70,'prueba','prueba'),(22,3,'2025-10-22 14:48:21',10,'DAVID ALONSO CASTRO MORENO','tarjeta');
 /*!40000 ALTER TABLE `venta` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -325,4 +327,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-20 18:58:19
+-- Dump completed on 2025-10-22  9:57:46
