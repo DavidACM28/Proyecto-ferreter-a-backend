@@ -33,4 +33,7 @@ public interface detalleVentaRepository extends JpaRepository<detalleVentaEntity
         ORDER BY totalVendido DESC
         """, nativeQuery = true)
     List<Object[]> findProductosMasVendidosAll();
+
+    @Query("SELECT dv FROM detalleVentaEntity dv where dv.venta.idVenta = :idVenta")
+    List<detalleVentaEntity> findByIdVenta(int idVenta);
 }

@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,8 +19,11 @@ import Final.Entities.ventaEntity;
 public interface ventaRepository extends JpaRepository<ventaEntity, Integer> {
 
     
-    @Query("SELECT COALESCE(SUM(v.totalVenta),0) FROM ventaEntity v")
+    @Query("SELECT COALESCE(SUM(v.totalVenta), 0) FROM ventaEntity v WHERE MONTH(v.fechaVenta) = MONTH(CURRENT_DATE) AND YEAR(v.fechaVenta) = YEAR(CURRENT_DATE)")
     Double sumTotalVentas();
+
+    @Query("SELECT COUNT(v) FROM ventaEntity v WHERE MONTH(v.fechaVenta) = MONTH(CURRENT_DATE) AND YEAR(v.fechaVenta) = YEAR(CURRENT_DATE)")
+    Long contarVentasMesActual();
 
     // ventas por mes (últimos N meses) - usamos native query for grouping month/year
     @Query(value = """
@@ -36,48 +41,66 @@ public interface ventaRepository extends JpaRepository<ventaEntity, Integer> {
 
 
     @Query("""
-        SELECT c.nombreCategoria AS categoria, p.nombreProducto AS producto, SUM(dv.cantidadProducto) AS cantidadVendida
-        FROM detalleVentaEntity dv
-        JOIN dv.producto p
-        JOIN p.categoria c
-        GROUP BY c.nombreCategoria, p.nombreProducto
-        ORDER BY cantidadVendida DESC
-    """)
+            SELECT c.nombreCategoria AS categoria, p.nombreProducto AS producto, SUM(dv.cantidadProducto) AS cantidadVendida
+            FROM detalleVentaEntity dv
+            JOIN dv.producto p
+            JOIN p.categoria c
+            GROUP BY c.nombreCategoria, p.nombreProducto
+            ORDER BY cantidadVendida DESC
+        """)
     List<Map<String, Object>> findProductosMasVendidosPorCategoria();
 
     @Query(value = """
-    SELECT DISTINCT v.* 
-    FROM venta v
-    WHERE v.fechaventa >= :inicio
-      AND v.fechaventa < :fin
-      AND (
-          :productoId IS NULL
-          OR EXISTS (
-              SELECT 1 
-              FROM detalleventa d
-              WHERE d.idventa = v.idventa
-              AND d.idproducto = :productoId
-          )
-      )
-      AND (
-          :categoriaId IS NULL
-          OR EXISTS (
-              SELECT 1
-              FROM detalleventa d2
-              JOIN producto p2 ON p2.idproducto = d2.idproducto
-              WHERE d2.idventa = v.idventa
-              AND p2.idcategoria = :categoriaId
-          )
-      )
-""", nativeQuery = true)
-List<ventaEntity> findVentasFiltradas(
-    @Param("inicio") LocalDateTime inicio,
-    @Param("fin") LocalDateTime fin,
-    @Param("productoId") Long productoId,
-    @Param("categoriaId") Long categoriaId
-);
+        SELECT DISTINCT v.* 
+        FROM venta v
+        WHERE v.fechaventa >= :inicio
+        AND v.fechaventa < :fin
+        AND (
+            :productoId IS NULL
+            OR EXISTS (
+                SELECT 1 
+                FROM detalleventa d
+                WHERE d.idventa = v.idventa
+                AND d.idproducto = :productoId
+            )
+        )
+        AND (
+            :categoriaId IS NULL
+            OR EXISTS (
+                SELECT 1
+                FROM detalleventa d2
+                JOIN producto p2 ON p2.idproducto = d2.idproducto
+                WHERE d2.idventa = v.idventa
+                AND p2.idcategoria = :categoriaId
+            )
+        )
+    """, nativeQuery = true)
+    List<ventaEntity> findVentasFiltradas(
+        @Param("inicio") LocalDateTime inicio,
+        @Param("fin") LocalDateTime fin,
+        @Param("productoId") Long productoId,
+        @Param("categoriaId") Long categoriaId
+    );
 
-
+    @Query("""
+        SELECT v FROM ventaEntity v
+        WHERE (:nombre IS NULL OR LOWER(v.trabajador.nombreTrabajador) LIKE LOWER(CONCAT('%', :nombre, '%')))
+        AND (:apellido IS NULL OR LOWER(v.trabajador.apellidoTrabajador) LIKE LOWER(CONCAT('%', :apellido, '%')))
+        AND (:cliente IS NULL OR LOWER(v.clienteVenta) LIKE LOWER(CONCAT('%', :cliente, '%')))
+        AND (:medioPago IS NULL OR LOWER(v.medioPagoVenta) LIKE LOWER(CONCAT('%', :medioPago, '%')))
+        AND (:fechaInicio IS NULL OR v.fechaVenta >= :fechaInicio)
+        AND (:fechaFin IS NULL OR v.fechaVenta <= :fechaFin)
+        ORDER BY idVenta DESC
+        """)
+    Page<ventaEntity> filtrarVentas(
+        @Param("nombre") String nombre,
+        @Param("apellido") String apellido,
+        @Param("cliente") String cliente,
+        @Param("medioPago") String medioPago,
+        @Param("fechaInicio") LocalDateTime fechaInicio,
+        @Param("fechaFin") LocalDateTime fechaFin,
+        Pageable pageable
+    );
 
 
 }
