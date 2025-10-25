@@ -47,7 +47,7 @@ public class authController {
             trabajador.setContraseñaTrabajador(passwordEncoder.encode(dtoRegistro.getPassword()));
             trabajador.setNombreTrabajador(dtoRegistro.getNombre());
             trabajador.setApellidoTrabajador(dtoRegistro.getApellido());
-            trabajador.setEstadoTrabajador(dtoRegistro.getEstado());
+            trabajador.setEstadoTrabajador(true);
             tipoTrabajadorEntity tipoTrabajador = dtoRegistro.getTipoTrabajador(); 
             trabajador.setTipoTrabajador(tipoTrabajador);
             trabajadorRepository.save(trabajador);
@@ -56,11 +56,14 @@ public class authController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<DtoAuthResponse> login(@RequestBody DtoLogin dtoLogin) {
+    public ResponseEntity<Object> login(@RequestBody DtoLogin dtoLogin) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dtoLogin.getUsername(), dtoLogin.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtGenerador.generarToken(authentication);
         trabajadorEntity trabajador = trabajadorRepository.findByUser(dtoLogin.getUsername());
+        if(trabajador == null) {
+            return new ResponseEntity<>("Usuario o contraseña incorrectos", HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(new DtoAuthResponse(token, trabajador), HttpStatus.OK);
     }
 

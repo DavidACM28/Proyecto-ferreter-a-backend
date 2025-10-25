@@ -16,7 +16,7 @@ public interface trabajadorRepository extends JpaRepository<trabajadorEntity, In
 
     Boolean existsByUsuarioTrabajador(String usuarioTrabajador);
 
-    @Query("select t from trabajadorEntity t where t.usuarioTrabajador = :usuarioTrabajador")
+    @Query("select t from trabajadorEntity t where t.usuarioTrabajador = :usuarioTrabajador AND t.estadoTrabajador = true")
     trabajadorEntity findByUser(String usuarioTrabajador);
 
     @Modifying

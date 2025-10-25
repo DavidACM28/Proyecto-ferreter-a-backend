@@ -32,9 +32,13 @@ public class categoriaController {
         return categoriaProductoService.editarCategoria(categoriaProductoEntity);
     }
 
-    @GetMapping("/categorias")
+    @GetMapping("/categoriasHabilitadas")
     public List<categoriaEntity> getAll() {
         return categoriaProductoService.findAllTrue();
+    }
+    @GetMapping("/categorias")
+    public List<categoriaEntity> findAll() {
+        return categoriaProductoService.findAll();
     }
 
     @PostMapping("/eliminar/{id}")

@@ -15,12 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 import Final.Services.ventaService;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import Final.Entities.ventaEntity;
+import Final.Repositories.detalleVentaRepository;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
 
 @RestController
 @RequestMapping("/venta")
@@ -29,6 +32,9 @@ public class ventaController {
 
     @Autowired
     private ventaService ventaService;
+
+    @Autowired
+    private detalleVentaRepository detalleVentaRepository;
 
     @GetMapping("/ventas")
     public List<ventaEntity> getAll() {
@@ -44,14 +50,16 @@ public class ventaController {
     public Long ventasMesActual() {
         return ventaService.contarVentasMesActual();
     }
+
     @GetMapping("/ventasPage")
     public ResponseEntity<Page<ventaEntity>> listarVentas(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "8") int size) {
-        
+
         Page<ventaEntity> ventas = ventaService.findAll(page, size);
         return ResponseEntity.ok(ventas);
     }
+
     @GetMapping("/filtrar")
     public ResponseEntity<Page<ventaEntity>> filtrarVentas(
             @RequestParam(required = false) String nombre,
@@ -64,8 +72,27 @@ public class ventaController {
             @RequestParam(defaultValue = "8") int size) {
 
         Pageable pageable = PageRequest.of(page, size);
-        Page<ventaEntity> resultado = ventaService.filtrarVentas(nombre, apellido, cliente, medioPago, fechaInicio, fechaFin, pageable);
+        Page<ventaEntity> resultado = ventaService.filtrarVentas(nombre, apellido, cliente, medioPago, fechaInicio,
+                fechaFin, pageable);
         return ResponseEntity.ok(resultado);
     }
-    
+
+    @GetMapping("/producto-mas-vendido-mes")
+    public ResponseEntity<Map<String, Object>> getProductoMasVendidoDelMes() {
+        Map<String, Object> response = new HashMap<>();
+
+        List<Object[]> resultados = detalleVentaRepository.findProductoMasVendidoDelMes();
+
+        if (resultados != null && !resultados.isEmpty()) {
+            Object[] fila = resultados.get(0);
+            response.put("nombreProducto", fila[0]);
+            response.put("cantidadVendida", fila[1]);
+        } else {
+            response.put("nombreProducto", "Sin ventas este mes");
+            response.put("cantidadVendida", 0);
+        }
+
+        return ResponseEntity.ok(response);
+    }
+
 }

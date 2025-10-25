@@ -3,6 +3,7 @@ package Final.Controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,12 @@ public class trabajadorController {
 
     @Autowired
     private trabajadorService trabajadorService;
+    private PasswordEncoder passwordEncoder;
+
+    public trabajadorController(trabajadorService trabajadorService, PasswordEncoder passwordEncoder) {
+        this.trabajadorService = trabajadorService;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @GetMapping("/trabajadores")
     public List<trabajadorEntity> listarTodos() {
@@ -31,7 +38,15 @@ public class trabajadorController {
 
     @PostMapping("/editarTrabajador")
     public String editar(@RequestBody trabajadorEntity trabajador) {
-        return trabajadorService.editarTrabajador(trabajador);
+        trabajadorEntity trabajador1 = new trabajadorEntity();
+        trabajador1.setIdTrabajador(trabajador.getIdTrabajador());
+        trabajador1.setTipoTrabajador(trabajador.getTipoTrabajador());
+        trabajador1.setNombreTrabajador(trabajador.getNombreTrabajador());
+        trabajador1.setApellidoTrabajador(trabajador.getApellidoTrabajador());
+        trabajador1.setUsuarioTrabajador(trabajador.getUsuarioTrabajador());
+        trabajador1.setContraseñaTrabajador(passwordEncoder.encode(trabajador.getContraseñaTrabajador()));
+        trabajador1.setEstadoTrabajador(trabajador.isEstadoTrabajador());
+        return trabajadorService.editarTrabajador(trabajador1);
     }
 
     @PostMapping("/deshabilitarTrabajador/{id}")

@@ -23,7 +23,11 @@ public class productoService {
     }
 
     public List<productoEntity> findAll() {
-        return productoRepository.findAll();
+        return productoRepository.traerHabilitados();
+    }
+
+    public List<productoEntity> finDeshabilitados() {
+        return productoRepository.traerDeshabilitados();
     }
 
     public List<productoEntity> obtenerTop6ProductosMasVendidos() {

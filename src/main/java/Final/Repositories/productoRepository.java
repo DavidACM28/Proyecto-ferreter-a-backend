@@ -28,11 +28,21 @@ public interface productoRepository extends JpaRepository<productoEntity, Intege
         SELECT p.* 
         FROM producto p
         JOIN detalleVenta dv ON p.idProducto = dv.idProducto
+        JOIN categoria c on p.idCategoria = c.idCategoria
+        WHERE p.estadoProducto = true
+        AND c.estadoCategoria = true
         GROUP BY p.idProducto
         ORDER BY SUM(dv.cantidadProducto) DESC
         LIMIT 6
         """, nativeQuery = true)
     List<productoEntity> findTop6ProductosMasVendidos();
+
+    @Query("SELECT p FROM productoEntity p WHERE p.estadoProducto = true AND p.categoria.estadoCategoria = true")
+    public List<productoEntity> traerHabilitados();
+
+    @Query("SELECT p FROM productoEntity p WHERE p.estadoProducto = false")
+    public List<productoEntity> traerDeshabilitados();
+
 
     @Modifying
     @Transactional

@@ -23,7 +23,9 @@ public class categoriaService {
     public List<categoriaEntity> findAllTrue() {
         return categoriaRepository.findAllTrue();
     }
-
+    public List<categoriaEntity> findAll() {
+        return categoriaRepository.findAll();
+    }
     public Page<categoriaEntity> findAllPage(PageRequest pageable) {
         return categoriaRepository.findAll(pageable);
     }

@@ -44,6 +44,11 @@ public class productoController {
         return productoService.findAll();
     }
 
+    @GetMapping("/productosDeshabilitados")
+    public List<productoEntity> traerDeshabilitados() {
+        return productoService.finDeshabilitados();
+    }
+
     @GetMapping("/masVendidos")
     public ResponseEntity<List<productoEntity>> obtenerTop6Productos() {
         List<productoEntity> productos = productoService.obtenerTop6ProductosMasVendidos();
