@@ -15,7 +15,7 @@ public interface detalleVentaRepository extends JpaRepository<detalleVentaEntity
             SELECT p.idProducto AS idProducto,
                    p.nombreProducto AS nombreProducto,
                    SUM(d.cantidadProducto) AS totalVendido
-            FROM detalleVenta d
+            FROM detalleventa d
             JOIN producto p ON d.idProducto = p.idProducto
             GROUP BY p.idProducto, p.nombreProducto
             ORDER BY totalVendido DESC
