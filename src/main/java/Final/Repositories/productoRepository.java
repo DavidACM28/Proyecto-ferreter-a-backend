@@ -27,7 +27,7 @@ public interface productoRepository extends JpaRepository<productoEntity, Intege
     @Query(value = """
         SELECT p.* 
         FROM producto p
-        JOIN detalleVenta dv ON p.idProducto = dv.idProducto
+        JOIN detalleventa dv ON p.idProducto = dv.idProducto
         JOIN categoria c on p.idCategoria = c.idCategoria
         WHERE p.estadoProducto = true
         AND c.estadoCategoria = true
