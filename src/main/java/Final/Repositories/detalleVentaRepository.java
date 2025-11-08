@@ -27,7 +27,7 @@ public interface detalleVentaRepository extends JpaRepository<detalleVentaEntity
             SELECT p.idProducto AS idProducto,
                    p.nombreProducto AS nombreProducto,
                    SUM(d.cantidadProducto) AS totalVendido
-            FROM detalleVenta d
+            FROM detalleventa d
             JOIN producto p ON d.idProducto = p.idProducto
             GROUP BY p.idProducto, p.nombreProducto
             ORDER BY totalVendido DESC
@@ -39,7 +39,7 @@ public interface detalleVentaRepository extends JpaRepository<detalleVentaEntity
 
     @Query(value = """
                 SELECT p.nombreProducto, SUM(d.cantidadProducto)
-                FROM detalleVenta d
+                FROM detalleventa d
                 INNER JOIN producto p ON p.idProducto = d.idProducto
                 INNER JOIN venta v ON v.idVenta = d.idVenta
                 WHERE MONTH(v.fechaVenta) = MONTH(CURDATE())
