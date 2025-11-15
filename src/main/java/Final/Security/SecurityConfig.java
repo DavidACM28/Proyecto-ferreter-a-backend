@@ -12,9 +12,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -63,19 +65,35 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/api/auth/login").permitAll()
                         .requestMatchers(
-                                        "/api/auth/registrarTrabajador",
-                                        "/trabajador/deshabilitarTrabajador/**",
-                                        "/trabajador/habilitarTrabajador/**", 
-                                        "/trabajador/trabajadores",
-                                        "/tipoTrabajador/**",
-                                        "/categoria/**"
-                                        ).hasAnyAuthority("Administrador", "TI")
+                                "/api/auth/registrarTrabajador",
+                                "/trabajador/deshabilitarTrabajador/**",
+                                "/trabajador/habilitarTrabajador/**",
+                                "/trabajador/trabajadores",
+                                "/tipoTrabajador/**",
+                                "/categoria/**")
+                        .hasAnyAuthority("Administrador", "TI")
                         .anyRequest().authenticated())
-                        
+
         ;
 
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+
+        // 👇 tu frontend en Cloudflare
+        config.setAllowedOrigins(List.of("https://proyecto-ferretera-a-frontend.pages.dev"));
+
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept", "Origin"));
+        config.setAllowCredentials(true); // si usas cookies / Authorization
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
     }
 
 }
