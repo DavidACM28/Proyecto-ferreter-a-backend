@@ -22,7 +22,7 @@ public class prediccionController {
 
             // Crear la solicitud GET
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("http://localhost:5001/predict"))
+                    .uri(URI.create("https://ventas-prediccion-flask.onrender.com/predict"))
                     .GET()
                     .build();
 
